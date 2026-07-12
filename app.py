@@ -12,8 +12,7 @@ app.config['MYSQL_PASSWORD'] = '1234'
 app.config['MYSQL_DB'] = 'vitaloop'
 mysql = MySQL(app)
 
-UPLOAD_FOLDER = 'static/uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['IMG_FOLDER'] = os.path.join(app.root_path, 'static', 'img')
 
 @app.route("/")
 def index():
@@ -80,13 +79,15 @@ def publicar():
 
         usuario_id = 1  # temporal
 
-        imagen = request.files['imagen']
-        filename = secure_filename(imagen.filename)
+        imagen = request.files.get('imagen')
 
-        ruta = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        imagen.save(ruta)
-
-        ruta_db = f"uploads/{filename}"
+        if imagen and imagen.filename != "":
+            filename = secure_filename(imagen.filename)
+            ruta = os.path.join(app.config['IMG_FOLDER'], filename)
+            imagen.save(ruta)
+            ruta_db = f"img/{filename}"
+        else:
+            ruta_db = None
 
         cur = mysql.connection.cursor()
         cur.execute("""
@@ -101,5 +102,50 @@ def publicar():
         return redirect(url_for('inicio'))
 
     return render_template("publicidad_donaciones.html")
+
+@app.route("/editar/<int:id>", methods=["GET", "POST"])
+def editar(id):
+
+    if request.method == "POST":
+
+        titulo = request.form["titulo"]
+        descripcion = request.form["descripcion"]
+        tipo = request.form["tipo"]
+
+        cursor = mysql.connection.cursor()
+
+        cursor.execute("""
+            UPDATE donaciones
+            SET titulo=%s,
+                descripcion=%s,
+                tipo=%s
+            WHERE id=%s
+        """, (titulo, descripcion, tipo, id))
+
+        mysql.connection.commit()
+
+        return redirect(url_for("inicio"))
+
+    cursor = mysql.connection.cursor()
+
+    cursor.execute("SELECT * FROM donaciones WHERE id=%s", (id,))
+    donacion = cursor.fetchone()
+
+    return render_template("editar.html", donacion=donacion)
+
+@app.route("/eliminar/<int:id>")
+def eliminar(id):
+
+    cursor = mysql.connection.cursor()
+
+    cursor.execute("DELETE FROM donaciones WHERE id=%s", (id,))
+
+    mysql.connection.commit()
+
+    cursor.close()
+
+    return redirect(url_for("inicio"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

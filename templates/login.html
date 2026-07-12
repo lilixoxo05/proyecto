@@ -1,63 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - VitaLoop</title>  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="static/css/estilos.css">
+<title>Login - VitaLoop</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 </head>
-<body class="bg-light">
 
-<div class="container">
-    <div class="row justify-content-center align-items-center vh-100">
-        <div class="col-md-5">
+<body>
 
-            <div class="card shadow p-4">
-                <h2 class="text-center mb-4">VitaLoop</h2>
-                <p class="text-center text-muted">Inicia sesión para continuar</p>
+<div class="login-container">
 
-                <form action="/login" method="POST">
+    <!-- Lado izquierdo -->
+    <div class="left-side">
 
-                    <div class="mb-3">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email"
-                               class="form-control"
-                               name="correo"
-                               placeholder="Ingresa tu correo"
-                               required>
-                    </div>
+        <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="VitaLoop">
 
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password"
-                               class="form-control"
-                               name="password"
-                               placeholder="Ingresa tu contraseña"
-                               required>
-                    </div>
+        <div class="overlay">
+            <h1>Comparte.</h1>
+            <h1>Reutiliza.</h1>
+            <h1>Ayuda.</h1>
 
-                    <button type="submit" class="btn btn-primary w-100">
-                        Iniciar Sesión
-                    </button>
+            <p>
+                Dona aquello que ya no utilizas y ayuda
+                a construir un mundo mejor.
+            </p>
+        </div>
 
-                </form>
+    </div>
 
-                <div class="text-center mt-3">
-                    <p>¿No tienes una cuenta?
-                        <a href="/registro">Regístrate</a>
-                    </p>
-                </div>
+    <!-- Lado derecho -->
+
+    <div class="right-side">
+
+        <h1>Welcome to <span>VitaLoop</span></h1>
+
+        <p>Inicia sesión para continuar</p>
+
+        <form action="/login" method="POST">
+
+            <label>Correo electrónico</label>
+
+            <input
+            type="email"
+            name="correo"
+            placeholder="Ingresa tu correo"
+            required>
+
+            <label>Contraseña</label>
+
+            <div class="password">
+
+                <input
+                type="password"
+                name="password"
+                placeholder="Ingresa tu contraseña"
+                required>
+
+                <i class="fa-solid fa-eye"></i>
+
             </div>
 
-        </div>
-    </div>
-</div>
+            <button class="login-btn">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+                Iniciar Sesión
+
+            </button>
+
+        </form>
+
+        <div class="separator">
+
+            <span>o</span>
+
+        </div>
+
+        <button class="google-btn">
+
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg">
+
+            Continuar con Google
+
+        </button>
+
+        <p class="register">
+
+            ¿No tienes cuenta?
+
+            <a href="/registro">Regístrate</a>
+
+        </p>
+
+    </div>
+
+</div>
 
 </body>
 </html>

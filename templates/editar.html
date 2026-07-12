@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Donación - VitaLoop</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow">
+
+                <div class="card-header header-vitaloop">
+                <h3 class="mb-0">Editar Donación</h3>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+
+                        <div class="mb-3">
+                            <label class="form-label">Título</label>
+
+                            <input
+                                type="text"
+                                name="titulo"
+                                class="form-control"
+                                value="{{ donacion[2] }}"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+
+                            <textarea
+                                name="descripcion"
+                                class="form-control"
+                                rows="4"
+                                required>{{ donacion[3] }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tipo</label>
+
+                            <select name="tipo" class="form-select">
+
+                                <option value="Ropa"
+                                {% if donacion[4]=="Ropa" %}selected{% endif %}>
+                                    Ropa
+                                </option>
+
+                                <option value="Comida"
+                                {% if donacion[4]=="Comida" %}selected{% endif %}>
+                                    Comida
+                                </option>
+
+                                <option value="Juguetes"
+                                {% if donacion[4]=="Juguetes" %}selected{% endif %}>
+                                    Juguetes
+                                </option>
+
+                                <option value="Libros"
+                                {% if donacion[4]=="Libros" %}selected{% endif %}>
+                                    Libros
+                                </option>
+
+                                <option value="Otros"
+                                {% if donacion[4]=="Otros" %}selected{% endif %}>
+                                    Otros
+                                </option>
+
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+
+                            <a href="{{ url_for('inicio') }}"
+                            class="btn btn-secondary">
+                                Cancelar
+                            </a>
+
+                            <button type="submit" class="btn btn-vitaloop">
+                            Guardar cambios
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
