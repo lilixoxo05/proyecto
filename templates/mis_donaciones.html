@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mis Donaciones | VitaLoop</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='mis_donaciones.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <!-- ENCABEZADO -->
+
+    <div class="banner">
+
+    <div>
+
+        <h1>📦 Mis Donaciones</h1>
+
+        <p>Administra todas tus publicaciones.</p>
+
+    </div>
+
+    <div class="botones-banner">
+
+        <a href="{{ url_for('inicio') }}" class="btn-inicio">
+            <i class="fa-solid fa-house"></i>
+            Ir al Inicio
+        </a>
+
+        <a href="{{ url_for('publicar') }}" class="btn-publicar">
+            <i class="fa-solid fa-plus"></i>
+            Nueva Donación
+        </a>
+
+    </div>
+
+</div>
+
+    <!-- TARJETAS -->
+
+    <div class="estadisticas">
+
+        <div class="card-info">
+
+            <i class="fa-solid fa-box"></i>
+
+            <h2>{{ total }}</h2>
+
+            <p>Total</p>
+
+        </div>
+
+        <div class="card-info">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <h2>{{ activas }}</h2>
+
+            <p>Activas</p>
+
+        </div>
+
+        <div class="card-info">
+
+            <i class="fa-solid fa-clock"></i>
+
+            <h2>{{ reservadas }}</h2>
+
+            <p>Reservadas</p>
+
+        </div>
+
+        <div class="card-info">
+
+            <i class="fa-solid fa-handshake"></i>
+
+            <h2>{{ entregadas }}</h2>
+
+            <p>Entregadas</p>
+
+        </div>
+
+    </div>
+
+    <!-- BUSCADOR -->
+
+    <div class="buscador">
+        <div class="filtros">
+
+    <button class="activo">Todas</button>
+
+    <button>Activas</button>
+
+    <button>Reservadas</button>
+
+    <button>Entregadas</button>
+
+</div>
+
+        <input type="text"
+        placeholder="Buscar una donación...">
+
+    </div>
+
+    <!-- LISTA -->
+
+    <div class="lista">
+
+        {% if donaciones %}
+
+            {% for d in donaciones %}
+
+            <div class="card-donacion">
+
+                <div class="imagen">
+
+                    {% if d[6] %}
+
+                        <img src="{{ url_for('static', filename=d[6]) }}">
+
+                    {% else %}
+
+                        <img src="{{ url_for('static', filename='img/sin-imagen.png') }}">
+
+                    {% endif %}
+
+                </div>
+
+                <div class="contenido">
+
+                    <h2>{{ d[1] }}</h2>
+
+                    <p>{{ d[2] }}</p>
+
+                    <div class="detalles">
+
+                        <span>
+
+                            <i class="fa-solid fa-tag"></i>
+
+                            {{ d[3] }}
+
+                        </span>
+
+                        <span>
+
+                            <i class="fa-solid fa-calendar"></i>
+
+                            {{ d[4] }}
+
+                        </span>
+
+                    </div>
+
+                    <div class="estado">
+
+                        {% if d[5] == "activa" %}
+
+                            <span class="activa">🟢 Activa</span>
+
+                        {% elif d[5] == "reservada" %}
+
+                            <span class="reservada">🟡 Reservada</span>
+
+                        {% else %}
+
+                            <span class="entregada">🔴 Entregada</span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="acciones">
+
+                        <a href="{{ url_for('editar', id=d[0]) }}" class="editar">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Editar
+
+                        </a>
+
+                        <a href="{{ url_for('eliminar', id=d[0]) }}"
+                        class="eliminar"
+                        onclick="return confirm('¿Eliminar esta donación?')">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Eliminar
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="sin-donaciones">
+
+            <i class="fa-solid fa-box-open"></i>
+
+            <h3>No tienes publicaciones todavía.</h3>
+
+            <a href="{{ url_for('publicar') }}" class="btn-publicar">
+
+                Publicar mi primera donación
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

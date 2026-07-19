@@ -17,10 +17,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
     <!-- Logo -->
     <a class="navbar-brand d-flex align-items-center me-auto"
-       href="{{ url_for('inicio') }}">
+        href="{{ url_for('inicio') }}">
         <img src="{{ url_for('static', filename='img/logo.jpeg') }}"
-             alt="Logo VitaLoop"
-             class="logo-nav">
+        alt="Logo VitaLoop"
+        class="logo-nav">
 
         <span class="ms-2 nombre-logo">VitaLoop</span>
     </a>
@@ -29,10 +29,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     <a href="{{ url_for('publicar') }}" class="nav-publicar me-4">
         Publicar Donación
     </a>
+    
+</li>
 
     <!-- Perfil -->
     <div class="perfil me-3">
+        
+    <a class="dropdown-item" href="{{ url_for('perfil') }}">
         A
+    </a>
     </div>
 
     <!-- Menú -->
@@ -53,6 +58,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                     <i class="bi bi-people me-2"></i>Nosotros
                 </a>
             </li>
+
+        <li class="nav-item">
+    <a class="dropdown-item" href="{{ url_for('perfil') }}">
+        <i class="bi bi-people me-2"></i>Mi Perfil
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class=" dropdown-item " href="{{ url_for('mis_donaciones') }}">
+        <i class="bi bi-box me-2"></i> Mis Donaciones
+    </a>
+</li>
+            
 
             <li><hr class="dropdown-divider"></li>
 
@@ -86,7 +104,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
 <p>
 Conectar personas solidarias con quienes más lo necesitan,
-facilitando donaciones de forma rápida, segura y gratuita.
+facilitando las donaciones de forma segura, rápida  y gratuita.
 </p>
 
 </div>

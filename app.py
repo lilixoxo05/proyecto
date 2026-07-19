@@ -3,7 +3,10 @@ from flask_mysqldb import MySQL
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
+from flask import session
 app = Flask(__name__)
+
+app.secret_key = "vitaloop2026"
 
 # CONFIGURACIÓN MYSQL.
 app.config['MYSQL_HOST'] = 'localhost'
@@ -20,22 +23,36 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
     if request.method == "POST":
+
         correo = request.form["correo"]
         password = request.form["password"]
 
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM usuarios WHERE correo=%s AND password=%s",
-                    (correo, password))
+
+        cur.execute(
+            "SELECT * FROM usuarios WHERE correo=%s AND password=%s",
+            (correo, password)
+        )
+
         user = cur.fetchone()
+
         cur.close()
 
         if user:
+
+            session["usuario_id"] = user[0]
+            session["nombre"] = user[1]
+            session["correo"] = user[3]
+
             return redirect(url_for("inicio"))
+
         else:
             return "Usuario o contraseña incorrectos"
 
     return render_template("login.html")
+    
 
 @app.route("/registro", methods=["GET", "POST"])
 def registro():
@@ -58,16 +75,26 @@ def registro():
         return "Usuario registrado correctamente"
 
     return render_template("registro.html")
-
-
 @app.route("/inicio")
 def inicio():
+
+    if "usuario_id" not in session:
+        return redirect(url_for("login"))
+
     cur = mysql.connection.cursor()
+
     cur.execute("SELECT * FROM donaciones")
+
     donaciones = cur.fetchall()
+
     cur.close()
 
-    return render_template("inicio.html", donaciones=donaciones)
+    return render_template(
+        "inicio.html",
+        donaciones=donaciones
+    )
+
+
 
 @app.route("/publicar", methods=["GET", "POST"])
 def publicar():
@@ -77,7 +104,7 @@ def publicar():
         descripcion = request.form['descripcion']
         tipo = request.form['tipo']
 
-        usuario_id = 1  # temporal
+        usuario_id = session["usuario_id"]
 
         imagen = request.files.get('imagen')
 
@@ -146,6 +173,118 @@ def eliminar(id):
 
     return redirect(url_for("inicio"))
 
+@app.route("/perfil")
+def perfil():
+
+    if "usuario_id" not in session:
+        return redirect(url_for("login"))
+
+    cursor = mysql.connection.cursor()
+
+    cursor.execute("""
+        SELECT nombre,
+            apellido,
+            correo,
+            usuario,
+            foto,
+            telefono,
+            provincia,
+            municipio,
+            biografia
+        FROM usuarios
+        WHERE id=%s
+    """, (session["usuario_id"],))
+
+    usuario = cursor.fetchone()
+
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM donaciones
+        WHERE usuario_id=%s
+    """, (session["usuario_id"],))
+
+    total_publicaciones = cursor.fetchone()[0]
+
+    cursor.close()
+
+    return render_template(
+        "perfil.html",
+        usuario=usuario,
+        publicaciones=total_publicaciones
+    )
+@app.route("/mis_donaciones")
+def mis_donaciones():
+
+    if "usuario_id" not in session:
+        return redirect(url_for("login"))
+
+    cursor = mysql.connection.cursor()
+
+    # Donaciones del usuario
+    cursor.execute("""
+        SELECT id,
+            titulo,
+            descripcion,
+            tipo,
+            fecha_creacion,
+            estado,
+            imagen
+        FROM donaciones
+        WHERE usuario_id=%s
+        ORDER BY fecha_creacion DESC
+    """, (session["usuario_id"],))
+
+    donaciones = cursor.fetchall()
+
+    # Total
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM donaciones
+        WHERE usuario_id=%s
+    """, (session["usuario_id"],))
+
+    total = cursor.fetchone()[0]
+
+    # Activas
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM donaciones
+        WHERE usuario_id=%s
+        AND estado='activa'
+    """, (session["usuario_id"],))
+
+    activas = cursor.fetchone()[0]
+
+    # Reservadas
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM donaciones
+        WHERE usuario_id=%s
+        AND estado='reservada'
+    """, (session["usuario_id"],))
+
+    reservadas = cursor.fetchone()[0]
+
+    # Entregadas
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM donaciones
+        WHERE usuario_id=%s
+        AND estado='entregada'
+    """, (session["usuario_id"],))
+
+    entregadas = cursor.fetchone()[0]
+
+    cursor.close()
+
+    return render_template(
+        "mis_donaciones.html",
+        donaciones=donaciones,
+        total=total,
+        activas=activas,
+        reservadas=reservadas,
+        entregadas=entregadas
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Mi Perfil | VitaLoop</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='perfil.css') }}">
+
+    <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <!-- Banner -->
+
+    <div class="banner">
+
+    <div class="banner-overlay">
+
+        <div class="banner-texto">
+            <h2>Mi Perfil</h2>
+            <p>Gestiona tu información personal y tus donaciones.</p>
+        </div>
+
+        <i class="fa-solid fa-hand-holding-heart banner-icono"></i>
+
+    </div>
+
+</div>
+
+    <!-- Tarjeta -->
+
+    <div class="perfil-card">
+
+        <div class="foto-container">
+
+    <div class="avatar">
+        {{ usuario[0][0] | upper }}
+    </div>
+
+    </div>
+
+        <div class="datos-principales">
+
+            <h1>
+
+                {{ usuario[0] }} {{ usuario[1] }}
+
+            </h1>
+
+            <h5>
+
+                @{{ usuario[3] }}
+
+            </h5>
+
+        </div>
+
+        <hr>
+
+        <div class="info">
+
+            <div>
+
+                <i class="fa-solid fa-envelope"></i>
+
+                {{ usuario[2] }}
+
+            </div>
+
+            <div>
+
+                <i class="fa-solid fa-phone"></i>
+
+                {{ usuario[5] or "No registrado" }}
+
+            </div>
+
+            <div>
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                {{ usuario[6] or "Sin provincia" }}
+
+            </div>
+
+            <div>
+
+                <i class="fa-solid fa-map-location-dot"></i>
+
+                {{ usuario[7] or "Sin municipio" }}
+
+            </div>
+
+        </div>
+
+        <div class="bio">
+
+            <i class="fa-solid fa-user"></i>
+
+            {{ usuario[8] or "Este usuario todavía no tiene una biografía." }}
+
+        </div>
+
+        <div class="contenido">
+
+            <div class="estadisticas">
+
+                <h3>
+
+                    Resumen de actividad
+
+                </h3>
+
+                <div class="cards">
+
+                    <div class="item">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        <h2>{{ publicaciones }}</h2>
+
+                        <p>Publicaciones</p>
+
+                    </div>
+
+                    <div class="item">
+
+                        <i class="fa-solid fa-handshake"></i>
+
+                        <h2>0</h2>
+
+                        <p>Entregadas</p>
+
+                    </div>
+
+                    <div class="item">
+
+                        <i class="fa-solid fa-star"></i>
+
+                        <h2>★★★★★</h2>
+
+                        <p>Reputación</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="acciones">
+
+                <h3>
+
+                    Acciones
+
+                </h3>
+
+                <a href="#" class="btn verde">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Editar Perfil
+
+                </a>
+
+                <a href="#" class="btn blanco">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Cambiar Contraseña
+
+                </a>
+
+                <a href="{{ url_for('login') }}" class="btn rojo">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Cerrar Sesión
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
