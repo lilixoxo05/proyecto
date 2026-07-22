@@ -27,7 +27,7 @@ BANNER
 */
 
 .banner{
-    background:linear-gradient(135deg,#198754,#2ecc71);
+    background:linear-gradient(135deg,#198754,hsl(145, 63%, 49%));
     color:white;
     padding:35px 45px;
     border-radius:25px;

@@ -285,6 +285,137 @@ def mis_donaciones():
         reservadas=reservadas,
         entregadas=entregadas
     )
+    
+@app.route("/editar_perfil", methods=["GET", "POST"])
+def editar_perfil():
+
+    if "usuario_id" not in session:
+        return redirect(url_for("login"))
+
+    cursor = mysql.connection.cursor()
+
+    if request.method == "POST":
+
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        correo = request.form["correo"]
+        usuario = request.form["usuario"]
+        telefono = request.form["telefono"]
+        provincia = request.form["provincia"]
+        municipio = request.form["municipio"]
+        biografia = request.form["biografia"]
+
+        cursor.execute("""
+            UPDATE usuarios
+            SET nombre=%s,
+                apellido=%s,
+                correo=%s,
+                usuario=%s,
+                telefono=%s,
+                provincia=%s,
+                municipio=%s,
+                biografia=%s
+            WHERE id=%s
+        """, (
+            nombre,
+            apellido,
+            correo,
+            usuario,
+            telefono,
+            provincia,
+            municipio,
+            biografia,
+            session["usuario_id"]
+        ))
+
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect(url_for("perfil"))
+
+    cursor.execute("""
+        SELECT nombre,
+            apellido,
+            correo,
+            usuario,
+            telefono,
+            provincia,
+            municipio,
+            biografia
+        FROM usuarios
+        WHERE id=%s
+    """, (session["usuario_id"],))
+
+    usuario = cursor.fetchone()
+
+    cursor.close()
+
+    return render_template(
+        "editar_perfil.html",
+        usuario=usuario
+    )   
+    
+@app.route("/solicitar/<int:donacion_id>")
+def solicitar(donacion_id):
+
+    if "usuario_id" not in session:
+        return redirect(url_for("login"))
+
+    cursor = mysql.connection.cursor()
+
+    # Buscar el dueño de la donación
+    cursor.execute("""
+        SELECT usuario_id
+        FROM donaciones
+        WHERE id=%s
+    """, (donacion_id,))
+
+    donacion = cursor.fetchone()
+
+    if not donacion:
+        cursor.close()
+        return "La donación no existe."
+
+    propietario = donacion[0]
+
+    # Evitar solicitar una donación propia
+    if propietario == session["usuario_id"]:
+        cursor.close()
+        return "No puedes solicitar tu propia donación."
+
+    # Verificar si ya existe una solicitud
+    cursor.execute("""
+        SELECT id
+        FROM solicitudes
+        WHERE donacion_id=%s
+        AND solicitante_id=%s
+    """, (donacion_id, session["usuario_id"]))
+
+    existe = cursor.fetchone()
+
+    if existe:
+        cursor.close()
+        return "Ya enviaste una solicitud para esta donación."
+
+    # Guardar la solicitud
+    cursor.execute("""
+        INSERT INTO solicitudes
+        (donacion_id, solicitante_id, mensaje)
+        VALUES (%s,%s,%s)
+    """, (
+        donacion_id,
+        session["usuario_id"],
+        ""
+    ))
+
+    mysql.connection.commit()
+
+    cursor.close()
+
+    return redirect(url_for("inicio"))
+    
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

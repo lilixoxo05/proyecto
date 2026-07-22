@@ -6,84 +6,314 @@
     <title>VitaLoop - Inicio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
+<link rel="stylesheet" 
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
 </head>
 <body class="bg-light">
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark navbar-vitaloop">
-<div class="d-flex align-items-center w-100">
+<nav class="navbar navbar-expand-lg navbar-vitaloop">
 
-    <!-- Logo -->
-    <a class="navbar-brand d-flex align-items-center me-auto"
+    <div class="container">
+
+        <!-- Logo -->
+
+        <a class="navbar-brand d-flex align-items-center"
         href="{{ url_for('inicio') }}">
-        <img src="{{ url_for('static', filename='img/logo.jpeg') }}"
-        alt="Logo VitaLoop"
-        class="logo-nav">
 
-        <span class="ms-2 nombre-logo">VitaLoop</span>
-    </a>
+            <img src="{{ url_for('static', filename='img/logo.jpeg') }}"
+                class="logo-nav">
 
-    <!-- Publicar -->
-    <a href="{{ url_for('publicar') }}" class="nav-publicar me-4">
-        Publicar Donación
-    </a>
-    
-</li>
+            <div class="logo-texto">
 
-    <!-- Perfil -->
-    <div class="perfil me-3">
-        
-    <a class="dropdown-item" href="{{ url_for('perfil') }}">
-        A
-    </a>
-    </div>
+                <span class="titulo-logo">
 
-    <!-- Menú -->
-    <div class="dropdown">
-        <button class="btn-menu" type="button" data-bs-toggle="dropdown">
-            <i class="bi bi-three-dots-vertical"></i>
+                    VitaLoop
+
+                </span>
+
+                <small>
+
+                    Conectando personas con solidaridad
+
+                </small>
+
+            </div>
+
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu">
+
+            <span class="navbar-toggler-icon"></span>
+
         </button>
 
-        <ul class="dropdown-menu dropdown-menu-end shadow">
-            <li>
-                <a class="dropdown-item" href="{{ url_for('inicio') }}">
-                    <i class="bi bi-house me-2"></i>Inicio
+        <div class="collapse navbar-collapse"
+            id="menu">
+
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link active"
+                    href="{{ url_for('inicio') }}">
+
+                        Inicio
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                    href="#Donaciones disponibles">
+
+                        Donaciones
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                    href="#¿Quiénes somos?">
+
+                        Nosotros
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+            <div class="acciones-nav">
+
+                <a href="{{ url_for('publicar') }}"
+                class="btn-publicar">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Publicar
+
                 </a>
-            </li>
 
-            <li>
-                <a class="dropdown-item" href="#nosotros">
-                    <i class="bi bi-people me-2"></i>Nosotros
-                </a>
-            </li>
+                <button class="icono">
 
-        <li class="nav-item">
-    <a class="dropdown-item" href="{{ url_for('perfil') }}">
-        <i class="bi bi-people me-2"></i>Mi Perfil
-    </a>
-</li>
+                    <i class="fa-regular fa-heart"></i>
 
-<li class="nav-item">
-    <a class=" dropdown-item " href="{{ url_for('mis_donaciones') }}">
-        <i class="bi bi-box me-2"></i> Mis Donaciones
-    </a>
-</li>
-            
+                </button>
 
-            <li><hr class="dropdown-divider"></li>
+                <button class="icono">
 
-            <li>
-                <a class="dropdown-item text-danger" href="{{ url_for('login') }}">
-                    <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
-                </a>
-            </li>
-        </ul>
+                    <i class="fa-regular fa-bell"></i>
+
+                </button>
+
+                <div class="dropdown">
+
+                    <button class="perfil"
+                            data-bs-toggle="dropdown">
+
+                        {{ session["nombre"][0]|upper }}
+
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <a class="dropdown-item"
+                            href="{{ url_for('perfil') }}">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                Mi perfil
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a class="dropdown-item"
+                            href="{{ url_for('mis_donaciones') }}">
+
+                                <i class="fa-solid fa-box"></i>
+
+                                Mis donaciones
+
+                            </a>
+
+                        </li>
+
+                        <li><hr></li>
+
+                        <li>
+
+                            <a class="dropdown-item text-danger"
+                            href="{{ url_for('login') }}">
+
+                                <i class="fa-solid fa-right-from-bracket"></i>
+
+                                Cerrar sesión
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-</div>
 </nav>
+
+<section class="hero">
+
+
+    <div class="hero-texto">
+
+        <h1>Donaciones disponibles</h1>
+
+        <p>
+            Comparte lo que ya no usas y ayuda
+            a quienes más lo necesitan.
+        </p>
+
+        <div class="hero-info">
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-heart"></i>
+
+                <div>
+
+                    <strong>Ayuda a otros</strong>
+
+                    <span>Tu donación puede cambiar vidas.</span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-shield-heart"></i>
+
+                <div>
+
+                    <strong>Totalmente seguro</strong>
+
+                    <span>Comunidad confiable.</span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-leaf"></i>
+
+                <div>
+
+                    <strong>100% Gratuito</strong>
+
+                    <span>Publica sin costo.</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-imagen">
+
+        <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="VitaLoop">
+
+    </div>
+
+</section>
+
+<!-- 
+BUSCADOR
+-->
+
+<section class="busqueda">
+
+    <div class="buscador">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            placeholder="Buscar donaciones..."
+        >
+
+    </div>
+
+    <button class="btn-filtro">
+
+        <i class="fa-solid fa-sliders"></i>
+
+        Filtros
+
+    </button>
+
+</section>
+
+<section class="categorias">
+
+    <button class="activo">
+        <i class="fa-solid fa-border-all"></i>
+        Todas
+    </button>
+
+    <button>
+        <i class="fa-solid fa-book"></i>
+        Libros
+    </button>
+
+    <button>
+        <i class="fa-solid fa-shirt"></i>
+        Ropa
+    </button>
+
+    <button>
+        <i class="fa-solid fa-puzzle-piece"></i>
+        Juguetes
+    </button>
+
+    <button>
+        <i class="fa-solid fa-laptop"></i>
+        Tecnología
+    </button>
+
+    <button>
+        <i class="fa-solid fa-utensils"></i>
+        Comida
+    </button>
+
+    <button>
+        <i class="fa-solid fa-house"></i>
+        Hogar
+    </button>
+
+</section>
+
 
 <!-- CONTENIDO -->
 <div class="container mt-5">
@@ -164,44 +394,92 @@ de solidaridad y compromiso social.
 
 {% for d in donaciones %}
 
-<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+<div class="col-lg-4 col-md-6 mb-4">
 
-    <div class="card shadow h-100">
+    <div class="card donacion-card">
 
-        {% if d[7] %}
-        <img src="{{ url_for('static', filename=d[7]) }}"
-            class="card-img-top"
-            style="height:200px; object-fit:cover;">
-        {% endif %}
+        <div class="imagen-container">
 
-        <div class="card-body">
+            {% if d[7] %}
+                <img src="{{ url_for('static', filename=d[7]) }}"
+                    class="card-img-top">
+            {% else %}
+                <img src="{{ url_for('static', filename='img/logo.jpeg') }}"
+                    class="card-img-top">
+            {% endif %}
 
-            <h5 class="card-title">{{ d[2] }}</h5>
+            <span class="estado">
+                {{ d[6] }}
+            </span>
 
-            <p class="card-text">{{ d[3] }}</p>
+            <button class="favorito">
 
-            <p><strong>Tipo:</strong> {{ d[4] }}</p>
+                <i class="fa-regular fa-heart"></i>
 
-            <span class="badge bg-success">{{ d[6] }}</span>
+            </button>
 
         </div>
 
-        <div class="card-footer d-flex gap-2">
+        <div class="card-body">
 
-    <a href="#" class="btn btn-success flex-fill">
-        Ver más
-    </a>
+            <h5>{{ d[2] }}</h5>
 
-    <a href="{{ url_for('editar', id=d[0]) }}" class="btn btn-warning flex-fill">
-        Editar
-    </a>
+            <p class="descripcion">
 
-    <a href="{{ url_for('eliminar', id=d[0]) }}" class="btn btn-danger flex-fill"
-    onclick="return confirm('¿Estás seguro de eliminar esta donación?')">
-        Eliminar
-    </a>
+                {{ d[3] }}
 
-</div>
+            </p>
+
+            <div class="info-donacion">
+
+                <span>
+
+                    <i class="fa-solid fa-tag"></i>
+
+                    {{ d[4] }}
+
+                </span>
+
+            </div>
+
+            <div class="usuario">
+
+                <div class="avatar">
+
+                    {{ d[2][0] }}
+
+                </div>
+
+                <div>
+
+                    <strong>Donación publicada</strong>
+
+                    <small>VitaLoop</small>
+
+                </div>
+
+            </div>
+
+            <div class="acciones">
+
+                <a href="#" class="btn btn-outline-success">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    Ver
+
+                </a>
+
+                <a href="{{ url_for('solicitar', donacion_id=d[0]) }}"
+                class="btn btn-success">
+
+                Solicitar
+
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
 

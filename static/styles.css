@@ -1,18 +1,5 @@
 
 
-.logo-nav{
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    margin-right: 10px;
-}
-.navbar-vitaloop{
-
-    background:linear-gradient(135deg,#198754,hsl(145, 63%, 49%));
-
-
-
-}
 
 .btn-light{
 
@@ -199,3 +186,700 @@ background: linear-gradient(135deg,#f5f9ff,#eef6ff);
     margin-right: auto;
     margin-left: 0;
 }
+
+/*
+HERO
+*/
+
+.hero{
+
+    margin:40px auto;
+
+    max-width:1300px;
+
+    padding:50px;
+
+    border-radius:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:40px;
+
+    background:linear-gradient(135deg,#eef9ef,#d7f3d8);
+
+    overflow:hidden;
+
+}
+
+.hero-texto{
+
+    flex:1;
+
+}
+
+.hero-texto h1{
+
+    font-size:52px;
+
+    font-weight:800;
+
+    color:#155724;
+
+}
+
+.hero-texto p{
+
+    margin-top:15px;
+
+    font-size:22px;
+
+    color:#555;
+
+    line-height:1.6;
+
+}
+
+.hero-info{
+
+    display:flex;
+
+    gap:30px;
+
+    margin-top:35px;
+
+    flex-wrap:wrap;
+
+}
+
+.info-item{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:flex-start;
+
+}
+
+.info-item i{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#1f9d55;
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+.info-item strong{
+
+    display:block;
+
+    font-size:17px;
+
+}
+
+.info-item span{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+.hero-imagen{
+
+    flex:0 0 340px;
+
+    text-align:center;
+
+}
+
+.hero-imagen img{
+
+    width:100%;
+
+    max-width:320px;
+
+    animation:flotar 4s ease-in-out infinite;
+
+}
+
+@keyframes flotar{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/*
+BUSCADOR
+*/
+
+.busqueda{
+
+    max-width:1300px;
+
+    margin:25px auto;
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:center;
+
+}
+
+.buscador{
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px 25px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.buscador i{
+
+    font-size:22px;
+
+    color:#198754;
+
+    margin-right:15px;
+
+}
+
+.buscador input{
+
+    border:none;
+
+    outline:none;
+
+    width:100%;
+
+    font-size:18px;
+
+}
+
+.btn-filtro{
+
+    border:none;
+
+    background:white;
+
+    padding:18px 28px;
+
+    border-radius:18px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.btn-filtro:hover{
+
+    background:#198754;
+
+    color:white;
+
+}
+
+/*
+CATEGORÍAS
+*/
+
+.categorias{
+
+    max-width:1300px;
+
+    margin:30px auto;
+
+    display:flex;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+}
+
+.categorias button{
+
+    border:none;
+
+    background:white;
+
+    padding:16px 24px;
+
+    border-radius:18px;
+
+    font-weight:600;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.categorias button:hover{
+
+    transform:translateY(-3px);
+
+    background:#198754;
+
+    color:white;
+
+}
+
+.categorias .activo{
+
+    background:#198754;
+
+    color:white;
+
+}
+
+.categorias i{
+
+    margin-right:8px;
+
+}
+
+
+/*
+TARJETAS
+*/
+
+.donacion-card{
+
+    border:none;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.donacion-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+
+}
+
+.imagen-container{
+
+    position:relative;
+
+}
+
+.imagen-container img{
+
+    width:100%;
+
+    height:240px;
+
+    object-fit:cover;
+
+}
+
+.estado{
+
+    position:absolute;
+
+    top:15px;
+
+    left:15px;
+
+    background:#198754;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+}
+
+.favorito{
+
+    position:absolute;
+
+    top:15px;
+
+    right:15px;
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.favorito:hover{
+
+    background:#198754;
+
+    color:white;
+
+}
+
+.card-body h5{
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+
+}
+
+.descripcion{
+
+    color:#666;
+
+    min-height:70px;
+
+}
+
+.info-donacion{
+
+    margin:18px 0;
+
+    color:#198754;
+
+    font-weight:600;
+
+}
+
+.usuario{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+}
+
+.avatar{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:#198754;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.acciones{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.acciones a{
+
+    flex:1;
+
+    border-radius:12px;
+
+}
+
+/*
+NAVBAR VITALOOP
+*/
+
+.navbar-vitaloop{
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+    z-index: 9999;
+
+    backdrop-filter: blur(15px);
+
+    background: rgba(255,255,255,.92);
+
+    border-bottom: 1px solid #ececec;
+
+    padding: 14px 0;
+
+}
+
+/*-------------------*/
+
+.logo-nav{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+.logo-texto{
+
+    margin-left:15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.titulo-logo{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#198754;
+
+    line-height:1;
+
+}
+
+.logo-texto small{
+
+    color:#666;
+
+    font-size:13px;
+
+}
+
+/*-------------------*/
+
+.navbar-nav{
+
+    gap:18px;
+
+}
+
+.nav-link{
+
+    position:relative;
+
+    color:#444 !important;
+
+    font-weight:600;
+
+    font-size:17px;
+
+    transition:.3s;
+
+}
+
+.nav-link:hover{
+
+    color:#198754 !important;
+
+}
+
+.nav-link::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-6px;
+
+    width:0;
+
+    height:3px;
+
+    background:#198754;
+
+    transition:.3s;
+
+    border-radius:10px;
+
+}
+
+.nav-link:hover::after{
+
+    width:100%;
+
+}
+
+/*-------------------*/
+
+.acciones-nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.btn-publicar{
+
+    background:#198754;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 22px;
+
+    border-radius:15px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.btn-publicar:hover{
+
+    background:#157347;
+
+    transform:translateY(-2px);
+
+    color:white;
+
+}
+
+.icono{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f3f5f7;
+
+    transition:.3s;
+
+    font-size:18px;
+
+}
+
+.icono:hover{
+
+    background:#198754;
+
+    color:white;
+
+    transform:translateY(-2px);
+
+}
+
+.perfil{
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#198754,#28c76f);
+
+    color:white;
+
+    font-weight:bold;
+
+    font-size:20px;
+
+    box-shadow:0 5px 15px rgba(25,135,84,.35);
+
+}
+
